@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Curricular Interactiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .semestre {
+      max-width: 900px;
+      margin: 0 auto 50px auto;
+    }
+    .semestre h2 {
+      background-color: #2c3e50;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+    }
+    .curso {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #333;
+    }
+    .curso.tachado {
+      background-color: #eee;
+      color: gray;
+      text-decoration: line-through;
+    }
+    .curso.desbloqueado {
+      background-color: #ffe6f0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Malla Curricular - Comunicación Audiovisual</h1>
+
+<div class="semestre">
+  <h2>Ciclo 1</h2>
+  <div class="curso" data-nombre="introduccion" onclick="marcarCurso(this)">Introducción a la Comunicación Audiovisual</div>
+  <div class="curso" data-nombre="lengua" onclick="marcarCurso(this)">Lengua y Comunicación</div>
+</div>
+
+<div class="semestre">
+  <h2>Ciclo 2</h2>
+  <div class="curso" data-nombre="fundamentos" data-requisitos="introduccion">Fundamentos de la Producción Audiovisual</div>
+  <div class="curso" data-nombre="psicologia" data-requisitos="lengua">Psicología General</div>
+</div>
+
+<script>
+  function marcarCurso(el) {
+    if (el.classList.contains('tachado')) return;
+
+    el.classList.add('tachado');
+
+    const nombre = el.dataset.nombre;
+
+    document.querySelectorAll('.curso').forEach(curso => {
+      const requisitos = curso.dataset.requisitos;
+      if (requisitos && requisitos.split(',').includes(nombre)) {
+        curso.classList.add('desbloqueado');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
